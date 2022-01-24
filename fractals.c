@@ -6,62 +6,63 @@
 /*   By: svos <svos@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/17 14:20:45 by svos          #+#    #+#                 */
-/*   Updated: 2022/01/18 13:41:11 by svos          ########   odam.nl         */
+/*   Updated: 2022/01/24 09:23:26 by svos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "mlx.h"
 
-void	putcolor(int x, int y, int icount, t_data *pic)
+void	putcolor(int x, int y, double iticount, t_data *pic)
 {
 	int	color;
 
-	color = 0;
-	while (icount > 765)
-		icount -= 765;
-	while (icount < 0)
-		icount += 765;
-	if (icount < 255)
-		color = icount;
-	if (icount >= 255 && icount < 510)
-		color = (icount - 254) * 0x00000100;
-	if (icount >= 510 && icount < 765)
-		color = (icount - 509) * 0x00010000;
-	if (icount == 765)
-		color = 0x00000000;
+	while (iticount > 765)
+		iticount -= 765;
+	while (iticount < 0)
+		iticount += 765;
+	if (iticount < 255)
+		color = iticount;
+	if (iticount >= 255 && iticount < 510)
+		color = (iticount - 254) * 0x00000100;
+	if (iticount >= 510 && iticount < 765)
+		color = (iticount - 509) * 0x00010000;
+	if (iticount == 765)
+		color = 0x00ffffff;
 	make_pixels(pic, x, y, color);
 }
 
-int	pick_fractal(int x, int y, t_fractfit *fitvals, char *fract)
+fptr	pick_fractal(char *fract)
 {
 	if (ft_memcmp(fract, "mandlebrot", 11) == 0)
-		return (mandlebrot_icount(x, y, fitvals));
+		return (&mandlebrot_iticount);
 	if (ft_memcmp(fract, "burning_ship", 13) == 0)
-		return (burning_ship_icount(x, y, fitvals));
+		return (&burning_ship_iticount);
 	if (ft_memcmp(fract, "julia", 6) == 0)
-		return (julia_icount(x, y, fitvals));
-	if (ft_memcmp(fract, "burning_julia", 14) == 0)
-		return (burning_julia_icount(x, y, fitvals));
+		return (&julia_iticount);
+	if (ft_memcmp(fract, "idunno", 7) == 0)
+		return (&idunno_iticount);
 	return (0);
 }
 
 void	make_fractal(t_root *root)
 {
-	int	x;
-	int	y;
-	int	icount;
+	int		x;
+	int		y;
+	double	iticount;
+	fptr	fractal;
 
 	x = 0;
+	fractal = pick_fractal(root ->fractal);
 	while (x < XRES)
 	{
 		y = 0;
 		while (y < YRES)
 		{
-			icount = pick_fractal(x, y, &root ->fitvals, root ->fractal);
-			icount = ((double)icount / (double)MAX_ITER)
-				* 765 + root ->fitvals.colorshift;
-			putcolor(x, y, icount, &root ->pic);
+			iticount = fractal(x, y, &root ->fractcoords);
+			iticount = ((double)iticount / (double)MAX_ITER)
+				* 765 + root ->fractcoords.colorshift;
+			putcolor(x, y, iticount, &root ->pic);
 			y++;
 		}
 		x++;

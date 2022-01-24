@@ -1,6 +1,6 @@
 NAME = fractol
 
-SRC = main.c make_pixels.c screen_mod.c fractals.c hooks.c ft_memcmp.c ft_atoi.c icount.c keychecks.c
+SRC = main.c make_pixels.c screen_mod.c fractals.c hooks.c ft_memcmp.c ft_atoi.c iticount.c hook_functions.c
 
 OBJ = $(SRC:.c=.o)
 
