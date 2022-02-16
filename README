@@ -1,0 +1,10 @@
+This project will show you a few fractals.
+Compile the project using
+
+make
+
+Then use
+
+./fractol
+
+to view a list of possible fractals

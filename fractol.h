@@ -6,7 +6,7 @@
 /*   By: svos <svos@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/17 14:22:29 by svos          #+#    #+#                 */
-/*   Updated: 2022/01/24 09:16:26 by svos          ########   odam.nl         */
+/*   Updated: 2022/01/24 14:04:32 by svos          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdlib.h>
 #include <unistd.h>
 
-# define XRES		480
-# define YRES		270
-# define MAX_ITER	600
+# define XRES		960
+# define YRES		540
+# define MAX_ITER	100
 
 typedef struct s_mlxvars
 {
